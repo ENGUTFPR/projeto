@@ -8,9 +8,14 @@ package Teste;
 import DAO.ClienteDAO;
 import Entity.Cliente;
 import Exceptions.CamposBrancosException;
+import GUI.NovoCliente;
 import Outros.Triangulo;
 import Outros.Util;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -30,57 +35,66 @@ public class ProjTeste {
     public void TesteValidacaoCPF() {
         assertTrue(Util.validacpf("413.235.468-71"));
     }
-    
-    @Test(expected = CamposBrancosException.class) 
-    public void TesteCampoNomeBranco() throws CamposBrancosException{
-        
-        Cliente cli = new Cliente();
-        
-        cli.setNome("");   
+
+    @Test
+    public void TesteValidacaoDataNasc() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date;
+        try {
+            date = (Date) formatter.parse("2016-01-01");
+            assertTrue(Util.validarDataNasc(date));
+        } catch (ParseException ex) {
+            Logger.getLogger(ProjTeste.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    
-    @Test(expected = CamposBrancosException.class) 
-    public void TesteCampoDataNascBranco() throws CamposBrancosException{
-        
+
+    @Test(expected = CamposBrancosException.class)
+    public void TesteCampoNomeBranco() throws CamposBrancosException {
+
         Cliente cli = new Cliente();
-        
+
+        cli.setNome("");
+    }
+
+    @Test(expected = CamposBrancosException.class)
+    public void TesteCampoDataNascBranco() throws CamposBrancosException {
+
+        Cliente cli = new Cliente();
+
         cli.setDataNascimento("  /  /    ");
     }
-    
-    @Test(expected = CamposBrancosException.class) 
-    public void TesteCampoCPFBranco() throws CamposBrancosException{
-        
+
+    @Test(expected = CamposBrancosException.class)
+    public void TesteCampoCPFBranco() throws CamposBrancosException {
+
         Cliente cli = new Cliente();
-        
-        cli.setCPF("   .   .   -  ");   
+
+        cli.setCPF("   .   .   -  ");
     }
-    
-    @Test(expected = CamposBrancosException.class) 
-    public void TesteCampoTelefoneBranco() throws CamposBrancosException{
-        
+
+    @Test(expected = CamposBrancosException.class)
+    public void TesteCampoTelefoneBranco() throws CamposBrancosException {
+
         Cliente cli = new Cliente();
-        
+
         cli.setTelefone("(  )    -    ");
     }
-    
-    
+
     @Test
-    public void TesteClienteCadastrado() throws CamposBrancosException{
-        
-        Cliente cli = new Cliente("Teste", "2010-05-01", "413.235.468-77", "", "(43)9167-1350", "", "", "", "", "", "");
+    public void TesteClienteCadastrado() throws CamposBrancosException {
+
+        Cliente cli = new Cliente("Teste", "2010-05-01", "413.235.468-80", "", "(43)9167-1350", "", "", "", "", "", "");
         ClienteDAO cliDAO = new ClienteDAO();
-        assertFalse(cliDAO.inserir(cli)); 
+        assertFalse(cliDAO.inserir(cli));
     }
-    
-    
-    
-    
+
 //    @Test
 //    public void TesteTriangulo() {
 //        Triangulo tr = new Triangulo();
 //        assertEquals(tr.ValidaTriangulo(1, 1, 1), 1);
 //    }
-
     public ProjTeste() {
     }
 

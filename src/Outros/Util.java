@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -113,6 +116,26 @@ public class Util {
         } else {
             return false;
         }
+    }
+    
+    private static Date getDateTime() {
+	//DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	Date date = new Date();
+	return date;
+}
+    
+    public static boolean validarDataNasc(Date DtaNasc){
+        boolean Result;
+            
+	if (getDateTime().before(DtaNasc)){
+		Result = false;
+	}
+	else if (getDateTime().after(DtaNasc))
+		Result = true;
+	else
+		Result = false;
+            
+        return Result;
     }
 
     public static boolean validarEmail(String email) {

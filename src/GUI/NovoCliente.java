@@ -16,6 +16,10 @@ import Outros.ComboBox;
 import java.awt.Color;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //import Utils.ComboBoxData;
 //import Utils.Util;
 //import Utils.VerificadorDeEntradas;
@@ -271,7 +275,14 @@ public class NovoCliente extends javax.swing.JFrame {
                     String dataNasc = jcbAnoNascimento.getSelectedItem() + "-" + (int) (jcbMesNascimento.getSelectedIndex() + 1) + "-" + jcbDiaNascimento.getSelectedItem();
                     cli = new Cliente(tfNome.getText(), dataNasc, tfCpf.getText(), tfRg.getText(), tfTelefone.getText(), tfEndereco.getText(), tfBairro.getText(), tfCidade.getText(), tfCep.getText(), cbEstado.getSelectedItem() + "", tfObs.getText());
                     ClienteDAO cliDAO = new ClienteDAO();
-                    cliDAO.inserir(cli);
+                    if (cliDAO.inserir(cli)) {
+                        JOptionPane.showMessageDialog(null, "Cadastro do cliente " + cli.getNome() + " realizado com sucesso");
+                        ClearCampos();
+                        tfNome.requestFocus();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "CPF existente, o cliente já está cadastrado. ", "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+                    }
+                        
                 } catch (CamposBrancosException ex) {
                     JOptionPane.showMessageDialog(null, ex.toString(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
                     tfNome.requestFocus();
@@ -352,6 +363,24 @@ public class NovoCliente extends javax.swing.JFrame {
             Util.dispayMsg("CPF inválido!");
             tfCpf.requestFocus();
             Result = false;
+
+        }
+
+        if (Result) {
+            String dataNasc = jcbAnoNascimento.getSelectedItem() + "-" + (int) (jcbMesNascimento.getSelectedIndex() + 1) + "-" + jcbDiaNascimento.getSelectedItem();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date = (Date) formatter.parse(dataNasc);
+                if (!Util.validarDataNasc(date)) {
+                    Util.dispayMsg("Data de nascimento inválida!");
+                    Result = false;
+                }
+            } catch (ParseException ex) {
+                Result = false;
+                Util.dispayMsg("Data de nascimento inválida!");
+                Logger.getLogger(NovoCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
 
         return Result;

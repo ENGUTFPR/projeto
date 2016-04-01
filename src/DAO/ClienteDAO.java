@@ -48,9 +48,7 @@ public class ClienteDAO {
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sqlcli);
-            JOptionPane.showMessageDialog(null, "Cadastro do cliente " + c.getNome() + " realizado com sucesso");
-        } catch (MySQLIntegrityConstraintViolationException a){
-           JOptionPane.showMessageDialog(null, "CPF existente, o cliente já está cadastrado. ", "Erro de cadastro", JOptionPane.ERROR_MESSAGE); 
+        } catch (MySQLIntegrityConstraintViolationException a){ 
            Result = false;
         } catch (SQLException ex) {
             System.out.println(ex);
