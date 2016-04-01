@@ -14,11 +14,11 @@ public class Triangulo {
     private int Vertice2;
     private int Vertice3;
     
-    public void Tringulo() {
+    public Triangulo() {
         
     }
     
-    public void Triangulo(int L1, int L2, int L3){
+    public Triangulo(int L1, int L2, int L3){
         this.setVertice1(L1);
         this.setVertice2(L2);
         this.setVertice3(L3);

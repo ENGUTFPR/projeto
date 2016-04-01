@@ -8,6 +8,7 @@ package DAO;
 import Entity.Cliente;
 import Outros.DataSetPadrao;
 import java.sql.Connection;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,15 +42,22 @@ public class ClienteDAO {
         }
     }
 
-    public void inserir(Cliente c) {
+    public boolean inserir(Cliente c) {
+        boolean Result = true;
         String sqlcli = "INSERT INTO tb_cliente (NOME_CLI, DTA_NASC_CLI, CPF_CLI, RG_CLI, TEL_CLI, ENDERECO_CLI, BAIRRO_CLI, CIDADE_CLI, CEP_CLI, ESTADO_CLI, OBS_CLI) VALUES('" + c.getNome() + "', '" + c.getDataNascimento() + "','" + c.getCPF()+ "','" + c.getRG()+ "','" + c.getTelefone()+ "','" + c.getEndereco()+ "','" + c.getBairro()+ "','" + c.getCidade()+ "','" + c.getCEP()+ "','" + c.getEstado() + "','" + c.getObservacoes() + "');";
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sqlcli);
             JOptionPane.showMessageDialog(null, "Cadastro do cliente " + c.getNome() + " realizado com sucesso");
+        } catch (MySQLIntegrityConstraintViolationException a){
+           JOptionPane.showMessageDialog(null, "CPF existente, o cliente já está cadastrado. ", "Erro de cadastro", JOptionPane.ERROR_MESSAGE); 
+           Result = false;
         } catch (SQLException ex) {
+            System.out.println(ex);
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return Result;
     }
     
    

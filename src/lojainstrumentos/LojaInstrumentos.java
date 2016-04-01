@@ -5,6 +5,7 @@
  */
 package lojainstrumentos;
 
+import GUI.Home;
 import GUI.NovoCliente;
 
 /**
@@ -19,8 +20,8 @@ public class LojaInstrumentos {
      */
     public static void main(String[] args) {
         // TODO code application logic here     
-        NovoCliente Home = new NovoCliente();
-        Home.setVisible(true);
+        Home h = new Home();
+        h.setVisible(true);
 
     }
     

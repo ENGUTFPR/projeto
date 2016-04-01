@@ -5,6 +5,8 @@
  */
 package Entity;
 
+import Exceptions.CamposBrancosException;
+
 /**
  *
  * @author Wagner Chaves
@@ -23,18 +25,18 @@ public class Cliente {
     private String Estado;
     private String Observacoes;
     
-    public Cliente(String nome, String dtaNasc, String cpf, String rg, String tel, String endereco, String bairro, String cidade, String cep, String estado, String obs){
-        this.Nome = nome;
-        this.DataNascimento = dtaNasc;
-        this.CPF = cpf;
-        this.RG = rg;
-        this.Telefone = tel;
-        this.Endereco = endereco;
-        this.Bairro = bairro;
-        this.Cidade = cidade;
-        this.CEP = cep;
-        this.Estado = estado;
-        this.Observacoes = obs;
+    public Cliente(String nome, String dtaNasc, String cpf, String rg, String tel, String endereco, String bairro, String cidade, String cep, String estado, String obs) throws CamposBrancosException{
+        this.setNome(nome);
+        this.setTelefone(tel);
+        this.setCPF(cpf);
+        this.setDataNascimento(dtaNasc);
+        this.setRG(rg);
+        this.setEndereco(endereco);
+        this.setBairro(bairro);
+        this.setCidade(cidade);
+        this.setCEP(cep);
+        this.setEstado(estado);
+        this.setObservacoes(obs);
     }
     public Cliente(){
         
@@ -52,24 +54,40 @@ public class Cliente {
         return Nome;
     }
 
-    public void setNome(String nome) {
-        this.Nome = nome;
+    public void setNome(String nome) throws CamposBrancosException{
+        if (nome.equals("")){
+            throw new CamposBrancosException("Campo Nome vazio");
+        }
+        else{
+            this.Nome = nome;
+        }
     }
 
     public String getDataNascimento() {
         return DataNascimento;
     }
 
-    public void setDataNascimento(String dtaNasc) {
-        this.DataNascimento = dtaNasc;
+    public void setDataNascimento(String dtaNasc) throws CamposBrancosException {
+        if (dtaNasc.equals("  /  /    ")){
+            throw new CamposBrancosException("Campo Data de Nascimento vazio");
+        }
+        else{
+           this.DataNascimento = dtaNasc;
+
+        }
     }
 
     public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(String cpf) {
-        this.CPF = cpf;
+    public void setCPF(String cpf) throws CamposBrancosException {
+        if (cpf.equals("   .   .   -  ")){
+            throw new CamposBrancosException("Campo CPF vazio");
+        }
+        else{
+            this.CPF = cpf;
+        }
     }
 
     public String getRG() {
@@ -84,8 +102,13 @@ public class Cliente {
         return Telefone;
     }
 
-    public void setTelefone(String tel) {
-        this.Telefone = tel;
+    public void setTelefone(String tel) throws CamposBrancosException {
+         if (tel.equals("(  )    -    ")){
+            throw new CamposBrancosException("Campo Telefone vazio");
+        }
+        else{
+            this.Telefone = tel;
+        }
     }
 
     public String getEndereco() {
