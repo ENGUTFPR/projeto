@@ -92,6 +92,8 @@ public class NovoProduto extends javax.swing.JFrame {
         jLabelRG1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabelRG1.setText("Preço:");
 
+        spGarantia.setValue(3);
+
         jLabelRG2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabelRG2.setText("Quantidade:");
 
@@ -306,7 +308,7 @@ public class NovoProduto extends javax.swing.JFrame {
         tfMarca.setText(null);
         tfPreco.setText("0,00");
         spQtd.setValue(0);
-        spGarantia.setValue(0);
+        spGarantia.setValue(3);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -46,10 +46,35 @@ public class TesteProdutos {
         prod.setMarca("");
     }
     
+    @Test(expected = CamposBrancosException.class)
+    public void TestePrecoInvalido() throws CamposBrancosException {
+
+        Produto prod = new Produto();
+
+        prod.setPreco((float) -9.99);
+    }
+    
+    @Test(expected = CamposBrancosException.class)
+    public void TesteQtdNegativa() throws CamposBrancosException {
+
+        Produto prod = new Produto();
+
+        prod.setQuantidade(-1);
+    }
+    
+    @Test(expected = CamposBrancosException.class)
+    public void TesteGarantiaInv() throws CamposBrancosException {
+
+        Produto prod = new Produto();
+
+        prod.setGarantia(0);
+    }
+
+    
     @Test
     public void TesteProdutoCadastrado() throws CamposBrancosException {
 
-        Produto prod = new Produto("10098", "TESTE1", "TESTE2", 0, 0, 0);
+        Produto prod = new Produto("10098", "TESTE1", "TESTE2", 1, 0, 3);
         ProdutoDAO prodDAO = new ProdutoDAO();
         assertFalse(prodDAO.inserir(prod));
     }
@@ -57,7 +82,7 @@ public class TesteProdutos {
     @Test
     public void TesteCadastrarProduto() throws CamposBrancosException {
 
-        Produto prod = new Produto("10101", "TESTE3", "TESTE4", 0, 0, 0);
+        Produto prod = new Produto("10104", "TESTE3", "TESTE4", 1, 0, 3);
         ProdutoDAO prodDAO = new ProdutoDAO();
         assertTrue(prodDAO.inserir(prod));
     }

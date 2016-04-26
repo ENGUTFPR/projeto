@@ -81,9 +81,7 @@ public class Produto {
     /**
      * @param Marca the Marca to set
      */
-    public void setMarca(String Marca) throws CamposBrancosException {
-        this.Marca = Marca;
-        
+    public void setMarca(String Marca) throws CamposBrancosException {        
         if (Marca.equals("")){
             throw new CamposBrancosException("Campo Marca vazio");
         }
@@ -102,8 +100,13 @@ public class Produto {
     /**
      * @param Preco the Preco to set
      */
-    public void setPreco(float Preco) {
-        this.Preco = Preco;
+    public void setPreco(float Preco) throws CamposBrancosException {
+        if (Preco <= 0){
+            throw new CamposBrancosException("O preço deve ser maior que zero");
+        }
+        else{
+            this.Preco = Preco;
+        }
     }
 
     /**
@@ -116,8 +119,14 @@ public class Produto {
     /**
      * @param Quantidade the Quantidade to set
      */
-    public void setQuantidade(Integer Quantidade) {
-        this.Quantidade = Quantidade;
+    public void setQuantidade(Integer Quantidade) throws CamposBrancosException {        
+        if (Quantidade < 0){
+            throw new CamposBrancosException("Quantidade deve ser maior ou igual a zero");
+        }
+        else{
+            this.Quantidade = Quantidade;
+        }
+
     }
 
     /**
@@ -130,7 +139,14 @@ public class Produto {
     /**
      * @param Garantia the Garantia to set
      */
-    public void setGarantia(Integer Garantia) {
-        this.Garantia = Garantia;
+    public void setGarantia(Integer Garantia) throws CamposBrancosException {
+        if (Garantia < 3){
+            throw new CamposBrancosException("A garantia deve ser pelo menos 3 meses");
+        }
+        else{
+            this.Garantia = Garantia;
+        }
+        
+        
     }
 }
