@@ -218,7 +218,8 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemPesqClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPesqClienteActionPerformed
-    }//GEN-LAST:event_jMenuItemPesqClienteActionPerformed
+        NovoProduto nprod = new NovoProduto();
+        nprod.setVisible(true);    }//GEN-LAST:event_jMenuItemPesqClienteActionPerformed
 
     private void jMenuItemPesqApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPesqApartamentoActionPerformed
 

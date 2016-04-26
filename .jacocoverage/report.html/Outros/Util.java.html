@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 <span class="nc" id="L27">public class Util {</span>
 
     private static Component rootPane;
-<span class="fc" id="L30">    private static SimpleDateFormat dataFormatada = new SimpleDateFormat(&quot;dd/MM/yyyy&quot;);</span>
+<span class="nc" id="L30">    private static SimpleDateFormat dataFormatada = new SimpleDateFormat(&quot;dd/MM/yyyy&quot;);</span>
 
     public static void abrirJFrameCentralizado(JFrame dialog) {
 
@@ -57,19 +57,19 @@ import java.text.SimpleDateFormat;
     }
 
     public static boolean validacpf(String strCpf) { // formato XXX.XXX.XXX-XX   
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!strCpf.substring(0, 1).equals(&quot;&quot;)) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (!strCpf.substring(0, 1).equals(&quot;&quot;)) {</span>
             try {
                 int d1, d2;
                 int digito1, digito2, resto;
                 int digitoCPF;
                 String nDigResult;
-<span class="fc" id="L66">                strCpf = strCpf.replace('.', ' ');</span>
-<span class="fc" id="L67">                strCpf = strCpf.replace('-', ' ');</span>
-<span class="fc" id="L68">                strCpf = strCpf.replaceAll(&quot; &quot;, &quot;&quot;);</span>
-<span class="fc" id="L69">                d1 = d2 = 0;</span>
-<span class="fc" id="L70">                digito1 = digito2 = resto = 0;</span>
+<span class="nc" id="L66">                strCpf = strCpf.replace('.', ' ');</span>
+<span class="nc" id="L67">                strCpf = strCpf.replace('-', ' ');</span>
+<span class="nc" id="L68">                strCpf = strCpf.replaceAll(&quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L69">                d1 = d2 = 0;</span>
+<span class="nc" id="L70">                digito1 = digito2 = resto = 0;</span>
 
-<span class="pc bpc" id="L72" title="1 of 2 branches missed.">                for (int nCount = 1; nCount &lt; strCpf.length() - 1; nCount++) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                for (int nCount = 1; nCount &lt; strCpf.length() - 1; nCount++) {</span>
 <span class="nc" id="L73">                    digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1, nCount)).intValue();</span>
 
                     //multiplique a ultima casa por 2 a seguinte por 3 a seguinte por 4 e assim por diante.   
@@ -80,23 +80,23 @@ import java.text.SimpleDateFormat;
                 }
 
                 //Primeiro resto da divisão por 11.   
-<span class="fc" id="L83">                resto = (d1 % 11);</span>
+<span class="nc" id="L83">                resto = (d1 % 11);</span>
 
                 //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.   
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">                if (resto &lt; 2) {</span>
-<span class="fc" id="L87">                    digito1 = 0;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                if (resto &lt; 2) {</span>
+<span class="nc" id="L87">                    digito1 = 0;</span>
                 } else {
 <span class="nc" id="L89">                    digito1 = 11 - resto;</span>
                 }
 
-<span class="fc" id="L92">                d2 += 2 * digito1;</span>
+<span class="nc" id="L92">                d2 += 2 * digito1;</span>
 
                 //Segundo resto da divisão por 11.   
-<span class="fc" id="L95">                resto = (d2 % 11);</span>
+<span class="nc" id="L95">                resto = (d2 % 11);</span>
 
                 //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.   
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">                if (resto &lt; 2) {</span>
-<span class="fc" id="L99">                    digito2 = 0;</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">                if (resto &lt; 2) {</span>
+<span class="nc" id="L99">                    digito2 = 0;</span>
                 } else {
 <span class="nc" id="L101">                    digito2 = 11 - resto;</span>
                 }
@@ -109,9 +109,9 @@ import java.text.SimpleDateFormat;
 
                 //comparar o digito verificador do cpf com o primeiro resto + o segundo resto.   
 <span class="nc" id="L111">                return nDigVerific.equals(nDigResult);</span>
-<span class="fc" id="L112">            } catch (Exception e) {</span>
-<span class="fc" id="L113">                System.err.println(&quot;Erro !&quot; + e);</span>
-<span class="fc" id="L114">                return false;</span>
+<span class="nc" id="L112">            } catch (Exception e) {</span>
+<span class="nc" id="L113">                System.err.println(&quot;Erro !&quot; + e);</span>
+<span class="nc" id="L114">                return false;</span>
             }
         } else {
 <span class="nc" id="L117">            return false;</span>
@@ -159,8 +159,8 @@ import java.text.SimpleDateFormat;
     }
 
     public static boolean dispayMsg(String text) {
-<span class="fc" id="L162">        JOptionPane.showMessageDialog(rootPane, text, &quot;Confirmação&quot;, JOptionPane.OK_OPTION);</span>
-<span class="fc" id="L163">        return true;</span>
+<span class="nc" id="L162">        JOptionPane.showMessageDialog(rootPane, text, &quot;Confirmação&quot;, JOptionPane.OK_OPTION);</span>
+<span class="nc" id="L163">        return true;</span>
     }
 
     public static void sair() { //informa sistema que a aplicação esta fechado de forma correta

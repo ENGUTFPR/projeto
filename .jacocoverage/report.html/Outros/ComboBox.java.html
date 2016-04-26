@@ -13,44 +13,44 @@ import javax.swing.JComboBox;
  *
  * @author Wagner Chaves
  */
-<span class="fc" id="L16">public class ComboBox {</span>
+<span class="nc" id="L16">public class ComboBox {</span>
 
     public void loadDayOfMonth(JComboBox dayCB, int month, int year) {
-<span class="fc" id="L19">        dayCB.removeAllItems();</span>
-<span class="fc" id="L20">        Calendar cal = new GregorianCalendar(year, month, 1);</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">        while (month == cal.get(Calendar.MONTH)) {</span>
-<span class="fc" id="L22">            dayCB.addItem(makeObjToItemList(&quot;&quot; + cal.get(Calendar.DAY_OF_MONTH)));</span>
-<span class="fc" id="L23">            cal.add(Calendar.DATE, 1);</span>
+<span class="nc" id="L19">        dayCB.removeAllItems();</span>
+<span class="nc" id="L20">        Calendar cal = new GregorianCalendar(year, month, 1);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        while (month == cal.get(Calendar.MONTH)) {</span>
+<span class="nc" id="L22">            dayCB.addItem(makeObjToItemList(&quot;&quot; + cal.get(Calendar.DAY_OF_MONTH)));</span>
+<span class="nc" id="L23">            cal.add(Calendar.DATE, 1);</span>
         }
-<span class="fc" id="L25">    }</span>
+<span class="nc" id="L25">    }</span>
 
     public void loadYears(JComboBox yearCB, int currentYear) {
         int i;
-<span class="fc" id="L29">        yearCB.removeAllItems();</span>
-<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (i = currentYear; i &gt;= (currentYear - 200); i--) {</span>
-<span class="fc" id="L31">            yearCB.addItem(makeObjToItemList(&quot;&quot; + i));</span>
+<span class="nc" id="L29">        yearCB.removeAllItems();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        for (i = currentYear; i &gt;= (currentYear - 200); i--) {</span>
+<span class="nc" id="L31">            yearCB.addItem(makeObjToItemList(&quot;&quot; + i));</span>
         }
-<span class="fc" id="L33">    }</span>
+<span class="nc" id="L33">    }</span>
 
     public void loadMonths(JComboBox monthCB) {
-<span class="fc" id="L36">        monthCB.removeAllItems();</span>
-<span class="fc" id="L37">        monthCB.addItem(makeObjToItemList(&quot;Janeiro&quot;));</span>
-<span class="fc" id="L38">        monthCB.addItem(makeObjToItemList(&quot;Fevereiro&quot;));</span>
-<span class="fc" id="L39">        monthCB.addItem(makeObjToItemList(&quot;Março&quot;));</span>
-<span class="fc" id="L40">        monthCB.addItem(makeObjToItemList(&quot;Abril&quot;));</span>
-<span class="fc" id="L41">        monthCB.addItem(makeObjToItemList(&quot;Maio&quot;));</span>
-<span class="fc" id="L42">        monthCB.addItem(makeObjToItemList(&quot;Junho&quot;));</span>
-<span class="fc" id="L43">        monthCB.addItem(makeObjToItemList(&quot;Julho&quot;));</span>
-<span class="fc" id="L44">        monthCB.addItem(makeObjToItemList(&quot;Agosto&quot;));</span>
-<span class="fc" id="L45">        monthCB.addItem(makeObjToItemList(&quot;Setembro&quot;));</span>
-<span class="fc" id="L46">        monthCB.addItem(makeObjToItemList(&quot;Outubro&quot;));</span>
-<span class="fc" id="L47">        monthCB.addItem(makeObjToItemList(&quot;Novembro&quot;));</span>
-<span class="fc" id="L48">        monthCB.addItem(makeObjToItemList(&quot;Dezembro&quot;));</span>
-<span class="fc" id="L49">    }</span>
+<span class="nc" id="L36">        monthCB.removeAllItems();</span>
+<span class="nc" id="L37">        monthCB.addItem(makeObjToItemList(&quot;Janeiro&quot;));</span>
+<span class="nc" id="L38">        monthCB.addItem(makeObjToItemList(&quot;Fevereiro&quot;));</span>
+<span class="nc" id="L39">        monthCB.addItem(makeObjToItemList(&quot;Março&quot;));</span>
+<span class="nc" id="L40">        monthCB.addItem(makeObjToItemList(&quot;Abril&quot;));</span>
+<span class="nc" id="L41">        monthCB.addItem(makeObjToItemList(&quot;Maio&quot;));</span>
+<span class="nc" id="L42">        monthCB.addItem(makeObjToItemList(&quot;Junho&quot;));</span>
+<span class="nc" id="L43">        monthCB.addItem(makeObjToItemList(&quot;Julho&quot;));</span>
+<span class="nc" id="L44">        monthCB.addItem(makeObjToItemList(&quot;Agosto&quot;));</span>
+<span class="nc" id="L45">        monthCB.addItem(makeObjToItemList(&quot;Setembro&quot;));</span>
+<span class="nc" id="L46">        monthCB.addItem(makeObjToItemList(&quot;Outubro&quot;));</span>
+<span class="nc" id="L47">        monthCB.addItem(makeObjToItemList(&quot;Novembro&quot;));</span>
+<span class="nc" id="L48">        monthCB.addItem(makeObjToItemList(&quot;Dezembro&quot;));</span>
+<span class="nc" id="L49">    }</span>
 
     private Object makeObjToItemList(String string) {
-<span class="fc" id="L52">        Object obj = string;</span>
-<span class="fc" id="L53">        return obj;</span>
+<span class="nc" id="L52">        Object obj = string;</span>
+<span class="nc" id="L53">        return obj;</span>
     }
 
 }
