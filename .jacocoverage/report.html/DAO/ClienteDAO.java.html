@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClienteDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;LojaInstrumentos&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">DAO</a> &gt; <span class="el_source">ClienteDAO.java</span></div><h1>ClienteDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import Entity.Cliente;
+import Outros.DataSetPadrao;
+import java.sql.Connection;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Wagner Chaves
+ */
+public class ClienteDAO {
+    private Connection con;
+    private String user;
+    private String url;
+    private String password;
+
+<span class="nc" id="L31">    public ClienteDAO() {</span>
+<span class="nc" id="L32">        url = &quot;jdbc:mysql://localhost/db_loja&quot;;</span>
+<span class="nc" id="L33">        user = &quot;root&quot;;</span>
+<span class="nc" id="L34">        password = &quot;admin&quot;;</span>
+        try {
+<span class="nc" id="L36">            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span>
+<span class="nc" id="L37">            con = DriverManager.getConnection(url, user, password);</span>
+<span class="nc" id="L38">        } catch (ClassNotFoundException ex) {</span>
+<span class="nc" id="L39">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L40">        } catch (SQLException ex) {</span>
+<span class="nc" id="L41">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L42">        }</span>
+<span class="nc" id="L43">    }</span>
+
+    public boolean inserir(Cliente c) {
+<span class="nc" id="L46">        boolean Result = true;</span>
+<span class="nc" id="L47">        String sqlcli = &quot;INSERT INTO tb_cliente (NOME_CLI, DTA_NASC_CLI, CPF_CLI, RG_CLI, TEL_CLI, ENDERECO_CLI, BAIRRO_CLI, CIDADE_CLI, CEP_CLI, ESTADO_CLI, OBS_CLI) VALUES('&quot; + c.getNome() + &quot;', '&quot; + c.getDataNascimento() + &quot;','&quot; + c.getCPF()+ &quot;','&quot; + c.getRG()+ &quot;','&quot; + c.getTelefone()+ &quot;','&quot; + c.getEndereco()+ &quot;','&quot; + c.getBairro()+ &quot;','&quot; + c.getCidade()+ &quot;','&quot; + c.getCEP()+ &quot;','&quot; + c.getEstado() + &quot;','&quot; + c.getObservacoes() + &quot;');&quot;;</span>
+        try {
+<span class="nc" id="L49">            Statement st = con.createStatement();</span>
+<span class="nc" id="L50">            st.executeUpdate(sqlcli);</span>
+<span class="nc" id="L51">        } catch (MySQLIntegrityConstraintViolationException a){ </span>
+<span class="nc" id="L52">           Result = false;</span>
+<span class="nc" id="L53">        } catch (SQLException ex) {</span>
+<span class="nc" id="L54">            System.out.println(ex);</span>
+<span class="nc" id="L55">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L56">        }</span>
+        
+<span class="nc" id="L58">        return Result;</span>
+    }
+    
+   
+    public DataSetPadrao pesquisar(int opcao, String filtro) {
+        String cmp;
+        String sql;
+        String bS, eS;
+<span class="nc bnc" id="L66" title="All 4 branches missed.">        switch (opcao) {</span>
+<span class="nc" id="L67">            case 0:cmp = &quot;CPF_CLI LIKE &quot;;bS = &quot;'%&quot;;eS = &quot;%'&quot;;break;</span>
+<span class="nc" id="L68">            case 1:cmp = &quot;NOME_CLI LIKE &quot;;bS = &quot;'%&quot;;eS = &quot;%'&quot;;break;</span>
+<span class="nc" id="L69">            case 2:cmp = &quot;CIDADE_CLI LIKE &quot;;bS = &quot;'%&quot;;eS = &quot;%'&quot;;break;</span>
+<span class="nc" id="L70">            default:cmp = bS = eS = &quot;*&quot;;break;//flag de erro</span>
+        }
+<span class="nc" id="L72">        sql = &quot;SELECT COD_CLI AS \&quot;Código\&quot;,NOME_CLI AS \&quot;Nome\&quot;,DTA_NASC_CLI AS \&quot;Data de Nascimento\&quot;,CPF_CLI AS \&quot;CPF\&quot;,RG_CLI AS \&quot;RG\&quot;,TEL_CLI AS \&quot;Telefone\&quot;,ENDERECO_CLI AS \&quot;Endereco\&quot;,BAIRRO_CLI AS \&quot;Bairro\&quot;,CIDADE_CLI AS \&quot;Cidade\&quot;,CEP_CLI AS \&quot;CEP\&quot;,ESTADO_CLI AS \&quot;UF\&quot;, OBS_CLI AS \&quot;Observacoes\&quot; FROM tb_cliente where &quot; + cmp + bS + filtro + eS + &quot;;&quot;;</span>
+        Statement st;
+        try {
+<span class="nc" id="L75">            st = con.createStatement();</span>
+<span class="nc" id="L76">            ResultSet rs = st.executeQuery(sql);</span>
+<span class="nc" id="L77">            DataSetPadrao pds = new DataSetPadrao();</span>
+            int i;
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            for(i=1;i&lt;=rs.getMetaData().getColumnCount();i++){</span>
+<span class="nc" id="L80">                pds.addColumnName(rs.getMetaData().getColumnName(i));</span>
+            }
+<span class="nc bnc" id="L82" title="All 2 branches missed.">            while(rs.next()){</span>
+<span class="nc" id="L83">                Vector&lt;Object&gt; vector = new Vector&lt;Object&gt;();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                for(i=1;i&lt;=rs.getMetaData().getColumnCount();i++){</span>
+<span class="nc" id="L85">                    vector.add(rs.getObject(i));</span>
+                }
+<span class="nc" id="L87">                pds.addData(vector);</span>
+<span class="nc" id="L88">            }</span>
+<span class="nc" id="L89">            return pds;</span>
+
+<span class="nc" id="L91">        } catch (SQLException ex) {</span>
+<span class="nc" id="L92">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+<span class="nc" id="L94">        return null;</span>
+
+    }
+    
+    public void editar(Cliente c)
+    {
+<span class="nc" id="L100">        String sqlcli = &quot;UPDATE tb_cliente set NOME_CLI = '&quot;+c.getNome()+&quot;', DTA_NASC_CLI='&quot;+c.getDataNascimento()+&quot;', CPF_CLI = '&quot;+c.getCPF()+&quot;', RG_CLI = '&quot;+c.getRG()+&quot;', TEL_CLI = '&quot;+c.getTelefone()+&quot;', ENDERECO_CLI = '&quot;+c.getEndereco()+&quot;', BAIRRO_CLI = '&quot;+c.getBairro()+&quot;', CIDADE_CLI = '&quot;+c.getCidade()+ &quot;', CEP_CLI = '&quot; + c.getCEP()+ &quot;', ESTADO_CLI = '&quot; + c.getEstado()+ &quot;', OBS_CLI = '&quot; + c.getObservacoes() +&quot;' where COD_CLI = '&quot;+Integer.toString(c.getCodigo())+&quot;';&quot;;</span>
+        Statement st;
+        try {
+<span class="nc" id="L103">            st = con.createStatement();</span>
+<span class="nc" id="L104">            st.executeUpdate(sqlcli);</span>
+<span class="nc" id="L105">            JOptionPane.showMessageDialog(null, &quot;Cliente de CPF &quot;+ c.getCPF()+&quot; atualizado&quot;);</span>
+<span class="nc" id="L106">        } catch (SQLException ex) {</span>
+<span class="nc" id="L107">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L108">        }</span>
+<span class="nc" id="L109">    }</span>
+
+    public void deletar(Integer codigo)
+    {
+<span class="nc" id="L113">        String sqlcli = &quot;DELETE FROM tb_cliente where COD_CLI = '&quot;+Integer.toString(codigo)+&quot;'; &quot;;</span>
+        Statement st;
+        try {
+<span class="nc" id="L116">            st = con.createStatement();</span>
+<span class="nc" id="L117">            st.executeUpdate(sqlcli);</span>
+<span class="nc" id="L118">            JOptionPane.showMessageDialog(null, &quot;Cliente de CPF &quot;+Integer.toString(codigo)+&quot; excluído&quot;);</span>
+<span class="nc" id="L119">        } catch (SQLException ex) {</span>
+<span class="nc" id="L120">            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L121">        }</span>
+        
+<span class="nc" id="L123">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

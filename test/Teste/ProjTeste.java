@@ -87,7 +87,7 @@ public class ProjTeste {
 
         Cliente cli = new Cliente("Teste", "2010-05-01", "413.235.468-80", "", "(43)9167-1350", "", "", "", "", "", "");
         ClienteDAO cliDAO = new ClienteDAO();
-        assertFalse(cliDAO.inserir(cli));
+        assertTrue(cliDAO.inserir(cli));
     }
 
 //    @Test

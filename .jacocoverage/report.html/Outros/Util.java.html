@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Util.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;LojaInstrumentos&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">Outros</a> &gt; <span class="el_source">Util.java</span></div><h1>Util.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Outros;
+
+import java.awt.Component;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+/**
+ *
+ * @author Wagner Chaves
+ */
+<span class="nc" id="L27">public class Util {</span>
+
+    private static Component rootPane;
+<span class="fc" id="L30">    private static SimpleDateFormat dataFormatada = new SimpleDateFormat(&quot;dd/MM/yyyy&quot;);</span>
+
+    public static void abrirJFrameCentralizado(JFrame dialog) {
+
+<span class="nc" id="L34">        dialog.setLocationRelativeTo(null);</span>
+<span class="nc" id="L35">        dialog.setVisible(true);</span>
+<span class="nc" id="L36">    }</span>
+
+    public static void abrirJDialogCentralizado(JDialog dialog) {
+
+<span class="nc" id="L40">        dialog.setLocationRelativeTo(null);</span>
+<span class="nc" id="L41">        dialog.setVisible(true);</span>
+<span class="nc" id="L42">    }</span>
+
+    public static String calendarParaString(Calendar cal) {
+<span class="nc" id="L45">        return dataFormatada.format(cal.getTime());</span>
+    }
+
+    public static Calendar stringParaCalendar(String data) {
+        try {
+<span class="nc" id="L50">            Calendar c = Calendar.getInstance();</span>
+<span class="nc" id="L51">            c.setTime(dataFormatada.parse(data));</span>
+<span class="nc" id="L52">            return c;</span>
+<span class="nc" id="L53">        } catch (ParseException ex) {</span>
+<span class="nc" id="L54">            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);</span>
+        }
+<span class="nc" id="L56">        return null;</span>
+    }
+
+    public static boolean validacpf(String strCpf) { // formato XXX.XXX.XXX-XX   
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!strCpf.substring(0, 1).equals(&quot;&quot;)) {</span>
+            try {
+                int d1, d2;
+                int digito1, digito2, resto;
+                int digitoCPF;
+                String nDigResult;
+<span class="fc" id="L66">                strCpf = strCpf.replace('.', ' ');</span>
+<span class="fc" id="L67">                strCpf = strCpf.replace('-', ' ');</span>
+<span class="fc" id="L68">                strCpf = strCpf.replaceAll(&quot; &quot;, &quot;&quot;);</span>
+<span class="fc" id="L69">                d1 = d2 = 0;</span>
+<span class="fc" id="L70">                digito1 = digito2 = resto = 0;</span>
+
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">                for (int nCount = 1; nCount &lt; strCpf.length() - 1; nCount++) {</span>
+<span class="nc" id="L73">                    digitoCPF = Integer.valueOf(strCpf.substring(nCount - 1, nCount)).intValue();</span>
+
+                    //multiplique a ultima casa por 2 a seguinte por 3 a seguinte por 4 e assim por diante.   
+<span class="nc" id="L76">                    d1 = d1 + (11 - nCount) * digitoCPF;</span>
+
+                    //para o segundo digito repita o procedimento incluindo o primeiro digito calculado no passo anterior.   
+<span class="nc" id="L79">                    d2 = d2 + (12 - nCount) * digitoCPF;</span>
+                }
+
+                //Primeiro resto da divisão por 11.   
+<span class="fc" id="L83">                resto = (d1 % 11);</span>
+
+                //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.   
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">                if (resto &lt; 2) {</span>
+<span class="fc" id="L87">                    digito1 = 0;</span>
+                } else {
+<span class="nc" id="L89">                    digito1 = 11 - resto;</span>
+                }
+
+<span class="fc" id="L92">                d2 += 2 * digito1;</span>
+
+                //Segundo resto da divisão por 11.   
+<span class="fc" id="L95">                resto = (d2 % 11);</span>
+
+                //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.   
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">                if (resto &lt; 2) {</span>
+<span class="fc" id="L99">                    digito2 = 0;</span>
+                } else {
+<span class="nc" id="L101">                    digito2 = 11 - resto;</span>
+                }
+
+                //Digito verificador do CPF que está sendo validado.   
+<span class="nc" id="L105">                String nDigVerific = strCpf.substring(strCpf.length() - 2, strCpf.length());</span>
+
+                //Concatenando o primeiro resto com o segundo.   
+<span class="nc" id="L108">                nDigResult = String.valueOf(digito1) + String.valueOf(digito2);</span>
+
+                //comparar o digito verificador do cpf com o primeiro resto + o segundo resto.   
+<span class="nc" id="L111">                return nDigVerific.equals(nDigResult);</span>
+<span class="fc" id="L112">            } catch (Exception e) {</span>
+<span class="fc" id="L113">                System.err.println(&quot;Erro !&quot; + e);</span>
+<span class="fc" id="L114">                return false;</span>
+            }
+        } else {
+<span class="nc" id="L117">            return false;</span>
+        }
+    }
+    
+    private static Date getDateTime() {
+	//DateFormat dateFormat = new SimpleDateFormat(&quot;dd/MM/yyyy HH:mm:ss&quot;);
+<span class="nc" id="L123">	Date date = new Date();</span>
+<span class="nc" id="L124">	return date;</span>
+}
+    
+    public static boolean validarDataNasc(Date DtaNasc){
+        boolean Result;
+            
+<span class="nc bnc" id="L130" title="All 2 branches missed.">	if (getDateTime().before(DtaNasc)){</span>
+<span class="nc" id="L131">		Result = false;</span>
+	}
+<span class="nc bnc" id="L133" title="All 2 branches missed.">	else if (getDateTime().after(DtaNasc))</span>
+<span class="nc" id="L134">		Result = true;</span>
+	else
+<span class="nc" id="L136">		Result = false;</span>
+            
+<span class="nc" id="L138">        return Result;</span>
+    }
+
+    public static boolean validarEmail(String email) {
+
+<span class="nc" id="L143">        Pattern pattern = Pattern.compile(&quot;([a-zA-Z0-9_\\-\\.]+)@((\\[a-z]{1,3}\\.[a-z]&quot;</span>
+                + &quot;{1,3}\\.[a-z]{1,3}\\.)|(([a-zA-Z\\-]+\\.)+))&quot; + &quot;([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)&quot;,
+                Pattern.MULTILINE);
+<span class="nc" id="L146">        Matcher m = pattern.matcher(email);</span>
+<span class="nc" id="L147">        return m.matches();</span>
+    }
+
+    public static boolean imprimirConfirmacao(String text) {
+<span class="nc" id="L151">        int opcao = JOptionPane.showConfirmDialog(rootPane,</span>
+                text, &quot;Confirmação&quot;,
+                JOptionPane.YES_NO_OPTION);
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (opcao != JOptionPane.YES_OPTION) {</span>
+<span class="nc" id="L155">            return false;</span>
+
+        }
+<span class="nc" id="L158">        return true;</span>
+    }
+
+    public static boolean dispayMsg(String text) {
+<span class="fc" id="L162">        JOptionPane.showMessageDialog(rootPane, text, &quot;Confirmação&quot;, JOptionPane.OK_OPTION);</span>
+<span class="fc" id="L163">        return true;</span>
+    }
+
+    public static void sair() { //informa sistema que a aplicação esta fechado de forma correta
+<span class="nc" id="L167">        System.exit(0);</span>
+<span class="nc" id="L168">    }</span>
+
+    public static boolean validaCnpj(String str_cnpj) {
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (!str_cnpj.substring(0, 1).equals(&quot;&quot;)) {</span>
+            try {
+<span class="nc" id="L173">                str_cnpj = str_cnpj.replace('.', ' ');</span>
+<span class="nc" id="L174">                str_cnpj = str_cnpj.replace('/', ' ');</span>
+<span class="nc" id="L175">                str_cnpj = str_cnpj.replace('-', ' ');</span>
+<span class="nc" id="L176">                str_cnpj = str_cnpj.replaceAll(&quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L177">                int soma = 0, dig;</span>
+<span class="nc" id="L178">                String cnpj_calc = str_cnpj.substring(0, 12);</span>
+
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                if (str_cnpj.length() != 14) {</span>
+<span class="nc" id="L181">                    return false;</span>
+                }
+<span class="nc" id="L183">                char[] chr_cnpj = str_cnpj.toCharArray();</span>
+                /* Primeira parte */
+<span class="nc bnc" id="L185" title="All 2 branches missed.">                for (int i = 0; i &lt; 4; i++) {</span>
+<span class="nc bnc" id="L186" title="All 4 branches missed.">                    if (chr_cnpj[i] - 48 &gt;= 0 &amp;&amp; chr_cnpj[i] - 48 &lt;= 9) {</span>
+<span class="nc" id="L187">                        soma += (chr_cnpj[i] - 48) * (6 - (i + 1));</span>
+                    }
+                }
+<span class="nc bnc" id="L190" title="All 2 branches missed.">                for (int i = 0; i &lt; 8; i++) {</span>
+<span class="nc bnc" id="L191" title="All 4 branches missed.">                    if (chr_cnpj[i + 4] - 48 &gt;= 0 &amp;&amp; chr_cnpj[i + 4] - 48 &lt;= 9) {</span>
+<span class="nc" id="L192">                        soma += (chr_cnpj[i + 4] - 48) * (10 - (i + 1));</span>
+                    }
+                }
+<span class="nc" id="L195">                dig = 11 - (soma % 11);</span>
+<span class="nc bnc" id="L196" title="All 4 branches missed.">                cnpj_calc += (dig == 10 || dig == 11)</span>
+<span class="nc" id="L197">                        ? &quot;0&quot; : Integer.toString(dig);</span>
+                /* Segunda parte */
+<span class="nc" id="L199">                soma = 0;</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">                for (int i = 0; i &lt; 5; i++) {</span>
+<span class="nc bnc" id="L201" title="All 4 branches missed.">                    if (chr_cnpj[i] - 48 &gt;= 0 &amp;&amp; chr_cnpj[i] - 48 &lt;= 9) {</span>
+<span class="nc" id="L202">                        soma += (chr_cnpj[i] - 48) * (7 - (i + 1));</span>
+                    }
+                }
+<span class="nc bnc" id="L205" title="All 2 branches missed.">                for (int i = 0; i &lt; 8; i++) {</span>
+<span class="nc bnc" id="L206" title="All 4 branches missed.">                    if (chr_cnpj[i + 5] - 48 &gt;= 0 &amp;&amp; chr_cnpj[i + 5] - 48 &lt;= 9) {</span>
+<span class="nc" id="L207">                        soma += (chr_cnpj[i + 5] - 48) * (10 - (i + 1));</span>
+                    }
+                }
+<span class="nc" id="L210">                dig = 11 - (soma % 11);</span>
+<span class="nc bnc" id="L211" title="All 4 branches missed.">                cnpj_calc += (dig == 10 || dig == 11)</span>
+<span class="nc" id="L212">                        ? &quot;0&quot; : Integer.toString(dig);</span>
+<span class="nc" id="L213">                return str_cnpj.equals(cnpj_calc);</span>
+<span class="nc" id="L214">            } catch (Exception e) {</span>
+<span class="nc" id="L215">                System.err.println(&quot;Erro !&quot; + e);</span>
+<span class="nc" id="L216">                return false;</span>
+            }
+        } else {
+<span class="nc" id="L219">            return false;</span>
+        }
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
